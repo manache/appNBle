@@ -4,14 +4,12 @@
 // Small BLE app demo
 // (c) 2019, Nicolin Cioroianu
 //  Using:
-//     Upload the sketch o your Arduino
-//     An Arduino HM-10 anschließen
+//     Upload the sketch on your Arduino
+//     Connect the HM-10 to your
 //     
-//     Über BLE App serielle Verbindung aufbauen,
-//     "ein" oder "aus" ins Textfeld eingeben, 
-//     und LED beobachten.
-//
-///////////////////////////////////////////////////
+//     Via BLE App seriel App customize zour Arduino actions
+//     example: turn ON/OFF a led
+/////////////////////////////////////////////////////
 
 
 
@@ -29,14 +27,14 @@
 //#define TASK_xxx  OSINO_SCHED4
 //...add here tasks
 
-#define OSINO_NUMBER_OF_TASKS 5u
+
 
 int osino_task_activation[OSINO_NUMBER_OF_TASKS]
 
-// Wir verwenden Software Serial
+// we aere using Arduino Software Serial apis
 #define AduinoSoftSerialLIB
 
-// Eingebaute LED nutzen:control
+// config LEDs
 //const int LED  = 13;
 //const int LED_ext  = A0;
 typedef enum{
@@ -71,7 +69,7 @@ String msg;
 
 void ble_IO_init(void){
   SerialBT.begin(9600);
-  SerialBT.println("Bluetooth connection done");
+  SerialBT.println("Communication Estabilished");
   //pinMode(LED, OUTPUT);
   pinMode(BTRTS, OUTPUT);
 
@@ -93,7 +91,7 @@ void arduino_tsr_init(void){
 ///////////////////////////////////////////////////
 //
 // setup
-//    Verbindung mit HM-10 aufbauen
+//    communication with HM-10 
 //
 ///////////////////////////////////////////////////
 
@@ -109,36 +107,23 @@ void setup() {
 ///////////////////////////////////////////////////
 //
 // loop
-//    In jeder Iteration auf Nachricht warten,
-//    Nachricht analysieren,
-//    Aktion auslösen (LED ein/aus)
+//    In each itteration check the Messsage
 //
 ///////////////////////////////////////////////////
 
 void loop() {
   int lu8_isAvailable = SerialBT.available();
   int lu8_isCTS = digitalRead(BTCTS);
-  if ((lu8_isAvailable)&&(lu8_isCTS)){      // Daten liegen an
-     msg = SerialBT.readString(); // Nachricht lesen
-     if (msg == "ein") {
-//         digitalWrite(LED, HIGH);
-//         digitalWrite(LED_ext, HIGH);
-//         SerialBT.print("LED an Pin ");
-//         SerialBT.print(LED);
-//         SerialBT.println(" ist eingeschaltet!");
-      } 
-      else
-      if (msg == "aus") {
-//         digitalWrite(LED, LOW);
-//         digitalWrite(LED_ext, LOW);
-//         SerialBT.print("LED an Pin ");
-//         SerialBT.print(LED);
-//         SerialBT.println(" ist ausgeschaltet!");
+  if ((lu8_isAvailable)&&(lu8_isCTS)){      // checf if there is data
+     msg = SerialBT.readString(); // get the message
+     switch(msg):
+
+	 SerialBT.println("Executed" + CMD1);
       }
       else {
-         SerialBT.print("Kommando <");
+         SerialBT.print("Command <");
          SerialBT.print(msg);
-         SerialBT.println("> nicht bekannt");
+         SerialBT.println("unknown");
       }
     }
 }

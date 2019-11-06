@@ -1,0 +1,15 @@
+
+//git add . //add everithing to the stage
+//git add file.txt //just add one file to the stage
+//git status// check which files are on staging
+
+//git rm -r --cached xyzproject//remove folder name
+//git commit -m "here just a name taskxyz/release_A"// add shrt info within my commit
+//git tag v1.0.0E1// add a tag
+//git commit --ammend// overrride the already existing commit object
+
+
+
+just fot GitBash
+//clear// clear screen
+// touch file.txt // add new file
