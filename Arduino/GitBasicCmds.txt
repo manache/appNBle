@@ -7,7 +7,7 @@
 //git commit -m "here just a name taskxyz/release_A"// add shrt info within my commit
 //git tag v1.0.0E1// add a tag
 //git commit --ammend// overrride the already existing commit object
-
+//git push// upload the changes to github
 
 
 just fot GitBash
