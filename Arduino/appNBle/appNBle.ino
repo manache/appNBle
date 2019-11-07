@@ -10,8 +10,17 @@
 //     Via BLE App seriel App customize zour Arduino actions
 //     example: turn ON/OFF a led
 /////////////////////////////////////////////////////
+//just add comment pula
 
+#define NOP_MSG NULL
 
+typedef enum{
+  OSINO_SCHED1 =0u,
+  OSINO_SCHED2,
+  OSINO_SCHED3,
+  OSINO_SCHED4,
+  OSINO_SCHEDNUMBER
+}OSINO_LOOP;
 
 ///////////////////////////////////////////
 //
@@ -26,10 +35,10 @@
 #define PERIOD_OSINO_SCHED2 100u
 //#define TASK_xxx  OSINO_SCHED4
 //...add here tasks
+#define OSINO_NUMBER_OF_TASKS 50u//just to pula
 
 
-
-int osino_task_activation[OSINO_NUMBER_OF_TASKS]
+int osino_task_activation[OSINO_NUMBER_OF_TASKS];
 
 // we aere using Arduino Software Serial apis
 #define AduinoSoftSerialLIB
@@ -65,8 +74,12 @@ T_E_COM_STATE re_ComState= E_UNDEF;
 // Die versendete Nachricht:
 String msg; 
 
-
-
+void onCTS_Notification(void){
+  //have to check here
+}
+void task_add(int task){
+  //
+ }
 void ble_IO_init(void){
   SerialBT.begin(9600);
   SerialBT.println("Communication Estabilished");
@@ -115,16 +128,20 @@ void loop() {
   int lu8_isAvailable = SerialBT.available();
   int lu8_isCTS = digitalRead(BTCTS);
   if ((lu8_isAvailable)&&(lu8_isCTS)){      // checf if there is data
-     msg = SerialBT.readString(); // get the message
-     switch(msg):
-
-	 SerialBT.println("Executed" + CMD1);
-      }
-      else {
-         SerialBT.print("Command <");
-         SerialBT.print(msg);
-         SerialBT.println("unknown");
-      }
+//     msg = SerialBT.readString(); // get the message
+//     switch(msg){
+//      case NOP_MSG:
+//        //wait a while
+//        break;
+//      defaut:
+//        break;
+//      }
+    SerialBT.println("Executed");
+   }
+   else{
+      SerialBT.print("Command <");
+      SerialBT.print(msg);
+      SerialBT.println("unknown");
     }
 }
 /*=============================================
@@ -133,6 +150,4 @@ void loop() {
 ISR(TIMER0_COMPA_vect){    //This is the interrupt request
   //timer++;
 }
-void onCTS_Notification(void){
-  //have to check here
-}
+
